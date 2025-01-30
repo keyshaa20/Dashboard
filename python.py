@@ -40,7 +40,6 @@ def create_byweekday_df(df):
 all_df = pd.read_csv("all_data (2).csv")
 
 print(all_df)
-
 datetime_columns = ["dteday"]
 all_df.sort_values(by="dteday", inplace=True)
 all_df.reset_index(inplace=True)
@@ -91,16 +90,21 @@ ax[1].set_title("Visualisasi Data Hari Penyewaan (perjam)", loc="center", fontsi
 ax[1].tick_params(axis='y', labelsize=12)
 st.pyplot(fig)
 
+st.caption("1=Hari kerja")
+st.caption("0=Hari libur/akhir pekan")
+st.caption("Hari Penyewaan:")
+st.caption("0=Minggu, 1=Senin, 2=Selasa, 3=Rabu, 4=Kamis, 5=Jumat, 6=Sabtu")
+
+
 st.subheader("Statistik Pengguna Registered dan Casual berdasarkan cuaca (Per hari)")
 
 fig, ax = plt.subplots(figsize=(20, 10))
 colors = ["#90CAF9", "#D3D3D3", "#D3D3D3", "#D3D3D3", "#D3D3D3", "#D3D3D3", "#D3D3D3", "#D3D3D3"]
 sns.barplot(
-    x="registered_count", 
-    y="weathersit_x",
+    y="registered_count", 
+    x="weathersit_x",
     data=byweatherr_df.sort_values(by="registered_count", ascending=False),
     palette=colors,
-    ax=ax
 )
 ax.set_title("Number of Registered User by weather (day)", loc="center", fontsize=30)
 ax.set_ylabel(None)
@@ -112,11 +116,10 @@ st.pyplot(fig)
 fig, ax = plt.subplots(figsize=(20, 10))
 colors = ["#90CAF9", "#D3D3D3", "#D3D3D3", "#D3D3D3", "#D3D3D3", "#D3D3D3", "#D3D3D3", "#D3D3D3"]
 sns.barplot(
-    x="casual_count", 
-    y="weathersit_x",
+    y="casual_count", 
+    x="weathersit_x",
     data=byweatherc_df.sort_values(by="casual_count", ascending=False),
     palette=colors,
-    ax=ax
 )
 ax.set_title("Number of Casual User by weather (day)", loc="center", fontsize=30)
 ax.set_ylabel(None)
@@ -124,4 +127,9 @@ ax.set_xlabel(None)
 ax.tick_params(axis='y', labelsize=20)
 ax.tick_params(axis='x', labelsize=15)
 st.pyplot(fig)
+
+st.caption("1: Cerah, Sedikit awan, Berawan sebagian")
+st.caption("2: Kabut + Berawan, Kabut + Awan pecah, Kabut + Sedikit berawan, berkabut")
+st.caption("3: Salju Ringan, Hujan Ringan + Badai Petir ")
+st.caption("4: Hujan Lebat, Badai Petir + Kabut, Salju + Kabut")
 
